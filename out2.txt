@@ -1,0 +1,17 @@
+#replace
+bananabananabananabananaacd
+bananabananabananabananabcd
+
+#erase
+bananabananabananabananacd
+bananabananabananabananabcd
+
+
+#add
+bananabananabananabananabacd
+bananabananabananabananabcd
+
+
+#add after replace
+bananabananabananabananaacd
+bananabananabananabananabacd

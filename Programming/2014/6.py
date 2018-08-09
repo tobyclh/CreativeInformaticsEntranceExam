@@ -7,27 +7,30 @@ def is_similar(str1, str2):
     diff = 0
     should_skip = 0
     offset_1, offset_2 = 0, 0
-    for i in range(max(len1, len2)):
+    text_len = max(len1, len2)
+    for i in range(text_len):
         if diff > MAX_DIFF:
             return False
         char1, char2 = str1[i+offset_1], str2[i+offset_2]
         if char1 == char2:
             continue
+        min(MAX_DIFF - diff + i, )
+        for j in range(MAX_DIFF - diff): #replaced character
+            if str2[i+offset_2+j] == str1[i+offset_1+j]:
+                offset_2 += j
+                offset_1 += j
+                diff += j
+                break
         for j in range(MAX_DIFF - diff):
             if str2[i+offset_2+j] == char1:
                 offset_2 += j
                 diff += j
-                continue
+                break
         for j in range(MAX_DIFF - diff):
             if str1[i+offset_1+j] == char2:
                 offset_1 += j
                 diff += j
-                continue
-            
-
-
-        if char1 != char2:
-            diff += 1
+                break
     if diff < MAX_DIFF:
         return True
     else:
@@ -36,7 +39,7 @@ def is_similar(str1, str2):
 
 
 
-with open('out1.txt','r') as f:
+with open('out2.txt','r') as f:
     lines = f.readlines()
     for i in range(len(lines)):
         for j in range(i+1, len(lines)):
