@@ -1,5 +1,7 @@
 MAX_DIFF = 4
 def is_similar(str1, str2):
+    if str1 == str2:
+        return False
     len1 = len(str1)
     len2 = len(str2)
     str1 += max(len2 - len1, 0)*' '
@@ -11,22 +13,30 @@ def is_similar(str1, str2):
     for i in range(text_len):
         if diff > MAX_DIFF:
             return False
+        if i+offset_1 >= text_len or i+offset_2 >= text_len:
+            break
         char1, char2 = str1[i+offset_1], str2[i+offset_2]
         if char1 == char2:
             continue
-        min(MAX_DIFF - diff + i, )
+            
         for j in range(MAX_DIFF - diff): #replaced character
+            if i+offset_2+j >= text_len or i+offset_1+j >= text_len:
+                break
             if str2[i+offset_2+j] == str1[i+offset_1+j]:
                 offset_2 += j
                 offset_1 += j
                 diff += j
                 break
         for j in range(MAX_DIFF - diff):
+            if i+offset_2+j >= text_len:
+                break
             if str2[i+offset_2+j] == char1:
                 offset_2 += j
                 diff += j
                 break
         for j in range(MAX_DIFF - diff):
+            if i+offset_1+j >= text_len:
+                break
             if str1[i+offset_1+j] == char2:
                 offset_1 += j
                 diff += j
@@ -46,6 +56,9 @@ with open('out2.txt','r') as f:
             line_1, line_2 = lines[i].strip(), lines[j].strip()
             if len(line_1) < 20 or len(line_2) < 20:
                 continue
+            if line_1[0] == '#'or line_2[0] == '#':
+                continue
+
             if is_similar(line_1, line_2):
                 print('--------')
                 print(line_1)

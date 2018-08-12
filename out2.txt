@@ -1,17 +1,19 @@
 #replace
-bananabananabananabananaacd
-bananabananabananabananabcd
+#bananabananabananabananaacd
+#bananabananabananabananabcd
 
 #erase
-bananabananabananabananacd
-bananabananabananabananabcd
+#bananabananabananabananacd
+#bananabananabananabananabcd
 
 
 #add
 bananabananabananabananabacd
 bananabananabananabananabcd
 
+bananabananabananabananabacd
+bananabananabananabananabcddddddd
 
 #add after replace
-bananabananabananabananaacd
-bananabananabananabananabacd
+#bananabananabananabananaacd
+#bananabananabananabananabacd

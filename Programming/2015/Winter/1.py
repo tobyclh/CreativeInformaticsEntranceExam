@@ -6,7 +6,7 @@ def f(n, count=0):
     else:   
         previous_value, count = f(n-1, count)
         value = (previous_value * 161 +  2457) % 2**24
-        print(f'N : {n}, val : {value}, count : {count}')
+        # print(f'N : {n}, val : {value}, count : {count}')
         if value % 2 == 0:
             count += 1
         return value, count
