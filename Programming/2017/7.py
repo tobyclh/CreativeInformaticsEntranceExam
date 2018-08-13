@@ -1,6 +1,7 @@
 import numpy as np
 from tqdm import tqdm
-rlu = []
+from collections import deque
+rlu = deque()
 m = int(input('m? '))
 n = int(input('n? '))
 s = int(input('s? '))
@@ -11,35 +12,50 @@ for q in range(_min, 0, -1):
         dividers.append(q)
 print(f'Dividers : {dividers}')
 optimal_read = None
-for q in tqdm(dividers):
-    A = np.arange(m*n).reshape([m, n])
-    # print(f'A : {A}')
-    B = np.ones([m, n]).T# * 2
-    C = np.zeros([m, m])
+from numba import jit, int32
+# @jit(int32(int32, int32, int32))#(nopython=True)
+from joblib import Parallel, delayed
+
+def banana(q, m, n):
+    rlu = deque()
     count = 0
-    for u in tqdm(range(0, m, q)):
+    for u in range(0, m, q): 
         for v in range(0, m, q):
             for w in range(0, n, q):
                 for i in range(u, u+q):
                     for j in range(v, v+q):
-                        d = 0
                         for k in range(w, w+q):
-                            d += A[i,k] * B[k, j]
-                            for symbol in [f'A{i}{k}', f'B{k}{j}']:
+                            for symbol in [('A', i, k), ('B', k, j)]:
                                 if symbol in rlu:
                                     rlu.remove(symbol)
-                                    rlu.append(symbol)
-                                else:
-                                    if len(rlu) > s:
-                                        rlu.pop(0)
-                                    rlu.append(symbol)
+                                else:  
                                     count += 1
-                        C[i,j] += d
+                                    if len(rlu) > s:
+                                        rlu.popleft()
+                                rlu.append(symbol)
+                                    # print('Count')
+                    
+                        # C[i,j] += d
         # print(f'A@B : {A@B}')
-        assert np.allclose(C, A@B)
+        # assert np.allclose(C, A@B)
     # result.append([q, count])
-    if optimal_read is None or optimal_read > count or (optimal_read == count and best_q < q):
-        optimal_read = count
-        best_q = q
+    
+    return count
+from time import time
+def wrapper(q):
+    print(f'started for {q}')
+    start = time()
+    count = banana(q, m, n)
+    duration = time() - start
+    print(f'took : {duration} cnt : {count}, q : {q}')
+    # break
+
+results = Parallel(n_jobs=8)(delayed(wrapper)(q) for q in dividers)
+
+    
+# best_q = _max
+# if optimal_read is None or optimal_read > count or (optimal_read == count and best_q < q):
+#     optimal_read = count
+#     best_q = q
     
 print(f'Optimal divider : {q}, count : {optimal_read}')
