@@ -2,9 +2,15 @@ import numpy as np
 from tqdm import tqdm
 from collections import deque
 rlu = deque()
-m = int(input('m? '))
-n = int(input('n? '))
-s = int(input('s? '))
+def handle_input(_str, default=0):
+    val = input(_str)
+    if val is None or val == '' or not isinstance(int(val), int):
+        return default
+    else:
+        return int(val)
+m = handle_input('m? ')
+n = handle_input('n? ')
+s = handle_input('s? ')
 _min, _max = min(m, n), max(m, n)
 dividers = []
 for q in range(_min, 0, -1):
@@ -49,8 +55,9 @@ def wrapper(q):
     duration = time() - start
     print(f'took : {duration} cnt : {count}, q : {q}')
     # break
-
-results = Parallel(n_jobs=8)(delayed(wrapper)(q) for q in dividers)
+for q in dividers:
+    wrapper(q)
+# results = Parallel(n_jobs=8)(delayed(wrapper)(q) for q in dividers)
 
     
 # best_q = _max
