@@ -124,7 +124,7 @@ class triangle:
 
         
 tri = triangle(np.array([[0, 0], [10, 0], [5, 5*np.sqrt(3)]]))
-tri.make_family(int(input()))
+tri.make_family(int(input('K?')))
 
 #after plotting the graph you can simply test it with point
 vertices = tri.plot()
