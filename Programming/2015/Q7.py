@@ -9,8 +9,8 @@ for i,s in enumerate(spellings_101):
 for i,s in enumerate(spellings_10):
     s2n[s] = (i+1)*10
 
-for key, val in s2n.items():
-    print(f'{key} : {val}')
+# for key, val in s2n.items():
+#     print(f'{key} : {val}')
 multiplier = ['hundred', 'thousand']
 
 
