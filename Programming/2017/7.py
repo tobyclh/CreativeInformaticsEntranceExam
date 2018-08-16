@@ -21,7 +21,7 @@ optimal_read = None
 from numba import jit, int32
 # @jit(int32(int32, int32, int32))#(nopython=True)
 from joblib import Parallel, delayed
-
+# @jit
 def banana(q, m, n):
     rlu = deque()
     count = 0
@@ -39,13 +39,6 @@ def banana(q, m, n):
                                     if len(rlu) > s:
                                         rlu.popleft()
                                 rlu.append(symbol)
-                                    # print('Count')
-                    
-                        # C[i,j] += d
-        # print(f'A@B : {A@B}')
-        # assert np.allclose(C, A@B)
-    # result.append([q, count])
-    
     return count
 from time import time
 def wrapper(q):
@@ -55,14 +48,15 @@ def wrapper(q):
     duration = time() - start
     print(f'took : {duration} cnt : {count}, q : {q}')
     # break
-for q in dividers:
-    wrapper(q)
-# results = Parallel(n_jobs=8)(delayed(wrapper)(q) for q in dividers)
+# for q in dividers:
+#     wrapper(q)
+Parallel(n_jobs=len(dividers))(delayed(wrapper)(q) for q in dividers)
 
+    
     
 # best_q = _max
 # if optimal_read is None or optimal_read > count or (optimal_read == count and best_q < q):
 #     optimal_read = count
 #     best_q = q
     
-print(f'Optimal divider : {q}, count : {optimal_read}')
+# print(f'Optimal divider : {q}, count : {optimal_read}')
