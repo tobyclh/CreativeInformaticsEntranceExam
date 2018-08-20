@@ -8,9 +8,10 @@ def handle_input(_str, default=0):
         return default
     else:
         return int(val)
-m = handle_input('m? ')
-n = handle_input('n? ')
-s = handle_input('s? ')
+
+m = handle_input('m? ', 200)
+n = handle_input('n? ', 150)
+s = handle_input('s? ', 600)
 _min, _max = min(m, n), max(m, n)
 dividers = []
 for q in range(_min, 0, -1):

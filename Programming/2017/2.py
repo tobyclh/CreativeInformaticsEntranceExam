@@ -1,5 +1,5 @@
 import numpy as np
-with open('array.txt') as f:
+with open('mat1.txt') as f:
     line = f.read().replace('\n', ' ') #replace end of line with space, just to deal with shitty line ending
     if '.' in line:
         line = line.split('.')[0] #remove everything else after full stop
